@@ -6,13 +6,6 @@ import { useMutation } from "@apollo/client";
 import { useForm } from "../util/hooks";
 
 function Register(props) {
-  const initialState = {
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  };
-  const { onChange, onSubmit, values } = useForm(registerUser, initialState);
   const [errors, setErrors] = useState({});
 
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
@@ -23,12 +16,13 @@ function Register(props) {
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
-    variables: values,
   });
-
-  function registerUser() {
-    return addUser();
-  }
+  const { onChange, onSubmit, values } = useForm(addUser, {
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   return (
     <div className="form-container">
