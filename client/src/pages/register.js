@@ -1,16 +1,19 @@
 import React from "react";
 import { Button, Form } from "semantic-ui-react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/client";
 import { useForm } from "../util/hooks";
 
+import { AuthContext } from "../context/auth";
+
 function Register(props) {
   const [errors, setErrors] = useState({});
+  const context = useContext(AuthContext);
 
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
-    update(_proxy, result) {
-      console.log(result);
+    update(_proxy, { data: { register: userData } }) {
+      context.login(userData);
       props.history.push("/");
     },
     onError(err) {
