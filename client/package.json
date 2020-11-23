@@ -9,6 +9,7 @@
     "@testing-library/react": "^11.1.2",
     "@testing-library/user-event": "^12.2.2",
     "apollo-client": "^2.6.10",
+    "apollo-link-context": "^1.0.20",
     "graphql": "^15.4.0",
     "graphql-tag": "^2.11.0",
     "moment": "^2.29.1",

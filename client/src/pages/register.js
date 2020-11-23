@@ -11,6 +11,12 @@ function Register(props) {
   const [errors, setErrors] = useState({});
   const context = useContext(AuthContext);
 
+  const { onChange, onSubmit, values } = useForm(registerUserCallback, {
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
   const [addUser, { loading }] = useMutation(REGISTER_USER, {
     update(_proxy, { data: { register: userData } }) {
       context.login(userData);
@@ -19,13 +25,12 @@ function Register(props) {
     onError(err) {
       setErrors(err.graphQLErrors[0].extensions.exception.errors);
     },
+    variables: values,
   });
-  const { onChange, onSubmit, values } = useForm(addUser, {
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
+
+  function registerUserCallback() {
+    addUser();
+  }
 
   return (
     <div className="form-container">

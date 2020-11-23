@@ -5,13 +5,14 @@ export const useForm = (callback, initialState = {}) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    callback({ variables: values });
+    callback();
   };
   const onChange = (e) => {
     setValues({
       ...values,
       [e.target.name]: e.target.value,
     });
+    console.log(values);
   };
   return { onChange, onSubmit, values };
 };
